@@ -9,9 +9,10 @@
 </template>
 
 <script>
-  import Todos from './components/Todos';
-  import AddTask from './components/AddTask';
   import Header from './components/Layouts/Header';
+  import AddTask from './components/AddTask';
+  import Todos from './components/Todos';
+  import axios from 'axios'
 
 export default {
   name: 'App',
@@ -22,33 +23,41 @@ export default {
   },
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          title: 'Task One',
-          completed: false
-        },
-        {
-          id: 2,
-          title: 'Task Two',
-          completed: false
-        },
-        {
-          id: 3,
-          title: 'Task Three',
-          completed: false
-        }
-      ]
+      todos: []
     }
   },
   methods: {
+    // TODO implement http methods
+    // deleteTodo(id) {
+    //   axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+    //                 .then(() => this.todos = this.todos.filter(todo => todo.id !== id))
+    //                 .catch(err => err)
+    //     .catch(err => console.log(err));
+    // },
+    // addTask(newTask){
+    //   const {title, completed} = newTask;
+
+    //   axios.post('http://jsonplaceholder.typicode.com/todos', {
+    //     title,
+    //     completed
+    //   })
+    //     .then(res => this.todos = [...this.todos, res.data])
+    //     .catch(err => console.log(err))
+    // }
     deleteTodo(id) {
       this.todos = this.todos.filter(x => x.id !== id);
     },
     addTask(newTask){
       this.todos = [...this.todos, newTask];
     }
-  }
+  },
+ created(){
+   axios.get('http://jsonplaceholder.typicode.com/todos')
+    // filter based on variable from form?
+    .then(res => this.todos = (res.data.filter((item, id)=>id<10)))
+    .catch(err => console.log(err))
+    
+ } 
 }
 </script>
 

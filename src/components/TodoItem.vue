@@ -25,6 +25,7 @@ export default {
     background: whitesmoke;
     padding: 10px;
     border-bottom: 1px lightgray dotted;
+    height: 70px;
   }
   .is-complete {
     text-decoration: line-through;
